@@ -1,0 +1,159 @@
+﻿<Page x:Class="TVSoundController.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TVSoundController"
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      d:DesignWidth="500"
+      Title="Main"
+      FontSize="16"
+      Loaded="Page_Loaded"
+      SizeChanged="Page_SizeChanged">
+    <Page.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Margin" Value="0,0,12,0"/>
+        </Style>
+        <Style x:Key="Header" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Grid.ColumnSpan" Value="10"/>
+        </Style>
+        <Style TargetType="Slider" BasedOn="{StaticResource {x:Type Slider}}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0"
+                   Style="{StaticResource Header}"
+                   Content="Microphone"/>
+
+            <Label Grid.Row="1" Grid.Column="0"
+                   Content="Minimum level"/>
+            <Slider x:Name="sldMicMinLevel" Grid.Row="1" Grid.Column="1"
+                    Minimum="1"
+                    Maximum="30"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="MicMinLevel_ValueChanged"/>
+            <Label Grid.Row="1" Grid.Column="2"
+                   Content="{Binding Value, ElementName=sldMicMinLevel}"/>
+
+            <Label Grid.Row="2" Grid.Column="0"
+                   Content="Maximum level"/>
+            <Slider x:Name="sldMicMaxLevel" Grid.Row="2" Grid.Column="1"
+                    Minimum="5"
+                    Maximum="80"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="MicMaxLevel_ValueChanged"/>
+            <Label Grid.Row="2" Grid.Column="2"
+                   Content="{Binding Value, ElementName=sldMicMaxLevel}"/>
+
+            <Label Grid.Row="3" Grid.Column="0"
+                   Content="Scale"/>
+            <Slider x:Name="sldMicScale" Grid.Row="3" Grid.Column="1"
+                    Minimum="1"
+                    Maximum="100"
+                    SmallChange="1"
+                    LargeChange="5"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="MicScale_ValueChanged"/>
+            <Label Grid.Row="3" Grid.Column="2"
+                   Content="{Binding Value, ElementName=sldMicScale}"/>
+
+            <Label Grid.Row="4"
+                   Style="{StaticResource Header}"
+                   Content="TV"/>
+            <Label x:Name="lblIsTVConnected" Grid.Row="4" Grid.ColumnSpan="10"
+                   FontSize="12"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Content="connected"/>
+
+            <Label Grid.Row="5" Grid.Column="0"
+                   Content="Initial volume"/>
+            <Slider x:Name="sldTVVolumeInitial" Grid.Row="5" Grid.Column="1"
+                    Maximum="60"
+                    SmallChange="1"
+                    IsSnapToTickEnabled="True"/>
+            <Label Grid.Row="5" Grid.Column="2"
+                   Content="{Binding Value, ElementName=sldTVVolumeInitial}"/>
+
+            <Label Grid.Row="7" Grid.Column="0"
+                   Content="Maximum volume"/>
+            <Slider x:Name="sldTVVolumeMax" Grid.Row="7" Grid.Column="1"
+                    Maximum="60"
+                    IsSnapToTickEnabled="True" ValueChanged="TVVolumeMax_ValueChanged"/>
+            <Label Grid.Row="7" Grid.Column="2"
+                   Content="{Binding Value, ElementName=sldTVVolumeMax}"/>
+        </Grid>
+
+        <Border x:Name="bdrMeter" Grid.Row="1"
+                BorderBrush="#cccccc"
+                BorderThickness="1"
+                Width="42"/>
+
+        <Rectangle x:Name="rctMicLevel" Grid.Row="1"
+                   Height="12"
+                   Width="42"
+                   VerticalAlignment="Bottom"
+                   Fill="DeepSkyBlue"/>
+
+        <Rectangle x:Name="rctMicMaxLevel" Grid.Row="1"
+                   Height="2"
+                   Width="42"
+                   VerticalAlignment="Bottom"
+                   Fill="Red"/>
+        <Rectangle x:Name="rctMicMaxIntLevel" Grid.Row="1"
+                   Height="2"
+                   Width="42"
+                   VerticalAlignment="Bottom"
+                   Fill="OrangeRed"/>
+        <Rectangle x:Name="rctMicMinIntLevel" Grid.Row="1"
+                   Height="2"
+                   Width="42"
+                   VerticalAlignment="Bottom"
+                   Fill="DarkOliveGreen"/>
+        <Rectangle x:Name="rctMicMinLevel" Grid.Row="1"
+                   Height="2"
+                   Width="42"
+                   VerticalAlignment="Bottom"
+                   Fill="Green"/>
+
+        <StackPanel x:Name="stpMicProps" Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+            <Label Content="Mic properties:"/>
+        </StackPanel>
+
+        <Button x:Name="btnStartStop" Grid.Row="2"
+                Content="Start"
+                Padding="12"
+                Margin="8"
+                Click="StartStop_Click"/>
+    </Grid>
+</Page>
